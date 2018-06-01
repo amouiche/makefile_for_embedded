@@ -24,14 +24,19 @@ OBJCOPY = $(CROSS_PREFIX)objcopy
 SOURCES = \
 	../libA/liba.c \
 	../libA/liba_asm.s \
+	\
 	../libB/libb.c \
+	\
+	../libC++/libc.cxx \
+	\
 	main.cxx
     
 
 # list of directories where to find C headers
 INCLUDES = \
 	../libA \
-	../libB
+	../libB \
+	../libC++
     
 
     
@@ -49,10 +54,10 @@ OUTPUT = project.elf
 # instead of building for a particular hardware.
 # The easiest is to link with semihosting libc version (ie. rdimon.specs)
 LDFLAGS = --specs=rdimon.specs 
-CFLAGS =
-CXXFLAGS =
+CFLAGS   = -Wall
+CXXFLAGS = -Wall -fno-exceptions -fno-rtti  # disable exceptions and RTTI to simplify the linking of C++ code (anyway, does exceptions and RTTI are a good idea in deep embedded code ?)
 CPPFLAGS = 
-
+ASFLAGS  =
 
 # add INCLUDES directory to CPPFLAGS
 CPPFLAGS += $(addprefix -I,$(INCLUDES))
@@ -88,7 +93,7 @@ $(warning OBJS = $(OBJS))
 	
 %.o: %.s
 	@test -z "$(HIDECMD)" || echo "  AS    $<"
-	$(HIDECMD) $(AS) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@ -MMD -MP
+	$(HIDECMD) $(AS) $(CPPFLAGS) $(ASFLAGS) -c $< -o $@ -MMD -MP
 
 $(OUTPUT): $(OBJS)
 	@test -z "$(HIDECMD)" || echo "  LD    $@"
