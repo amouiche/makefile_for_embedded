@@ -1,6 +1,7 @@
 
 .phony : all clean
 
+# set the default target for 'make' called without target
 all:
 
 
@@ -44,9 +45,9 @@ OUTPUT = project.elf
 
 # We simply want to run the examples with 'qemu-arm project.elf' 
 # instead of building for a particular hardware.
-# The easiest is to link with semihosting libc version.
+# The easiest is to link with semihosting libc version (ie. rdimon.specs)
 LDFLAGS = --specs=rdimon.specs 
-CFLAGS =   
+CFLAGS =
 CXXFLAGS =
 CPPFLAGS = 
 
