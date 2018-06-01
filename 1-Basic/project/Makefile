@@ -69,6 +69,7 @@ OBJS = $(addsuffix .o,$(basename $(sort $(SOURCES))))
 
 
 # if VERBOSE is not defined, don't display the complete gcc command line, but only 'CC  foo.c'
+# run 'VERBOSE=1 make' to build the project with details.
 ifeq ($(VERBOSE),)
 HIDECMD=@
 else
