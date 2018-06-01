@@ -12,24 +12,26 @@ all:
 CROSS_PREFIX = arm-none-eabi-
 
 
-CC = $(CROSS_PREFIX)gcc
+CC =  $(CROSS_PREFIX)gcc
 CXX = $(CROSS_PREFIX)g++
-LD = $(CROSS_PREFIX)ld
+AS =  $(CROSS_PREFIX)as
+LD =  $(CROSS_PREFIX)ld
 OBJCOPY = $(CROSS_PREFIX)objcopy
 
 
 
 # list of sources to build
 SOURCES = \
-    ../libA/liba.c \
-    ../libB/libb.c \
-    main.cxx
+	../libA/liba.c \
+	../libA/liba_asm.s \
+	../libB/libb.c \
+	main.cxx
     
 
 # list of directories where to find C headers
 INCLUDES = \
-    ../libA \
-    ../libB
+	../libA \
+	../libB
     
 
     
@@ -73,7 +75,7 @@ endif
 # main.d & co files were created the previous time we run the makefile
 include $(wildcard $(addsuffix .d,$(basename $(OBJS))))
 
-$(warning $(OBJS))
+$(warning OBJS = $(OBJS))
 
 # generic rules for build and generating dependency list
 %.o: %.c
@@ -84,6 +86,9 @@ $(warning $(OBJS))
 	@test -z "$(HIDECMD)" || echo "  CXX   $<"
 	$(HIDECMD) $(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@ -MMD -MP
 	
+%.o: %.s
+	@test -z "$(HIDECMD)" || echo "  AS    $<"
+	$(HIDECMD) $(AS) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@ -MMD -MP
 
 $(OUTPUT): $(OBJS)
 	@test -z "$(HIDECMD)" || echo "  LD    $@"
