@@ -44,10 +44,10 @@ OUTPUT = project.elf
     
 
 # Define the various flags required for build and link
-# CFLAGS: required options for C compilation
+# CFLAGS:   required options for C compilation
 # CXXFLAGS: options for C++ compilation
 # CPPFLAGS: flags for preprocessor. Applied both for C and C++
-# LDFLAGS
+# LDFLAGS:  linker flags
 
 
 # We simply want to run the examples with 'qemu-arm project.elf' 
