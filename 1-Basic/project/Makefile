@@ -1,5 +1,5 @@
 
-.phony : all clean
+.phony : all clean test
 
 # set the default target for 'make' called without target
 all:
@@ -93,7 +93,7 @@ $(warning OBJS = $(OBJS))
 	
 %.o: %.s
 	@test -z "$(HIDECMD)" || echo "  AS    $<"
-	$(HIDECMD) $(AS) $(CPPFLAGS) $(ASFLAGS) -c $< -o $@ -MMD -MP
+	$(HIDECMD) $(AS) $(ASFLAGS) -c $< -o $@
 
 $(OUTPUT): $(OBJS)
 	@test -z "$(HIDECMD)" || echo "  LD    $@"
@@ -109,4 +109,7 @@ all: $(OUTPUT)
 clean:
 	rm -f $(OBJS) $(OUTPUT)
 	
+test: all
+	@echo "------------ test --------------"
+	$(HIDECMD) qemu-arm $(OUTPUT)
 
