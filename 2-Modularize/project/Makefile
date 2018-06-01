@@ -1,8 +1,8 @@
 
-.phony : all clean test
+.phony : all clean test help
 
 # set the default target for 'make' called without target
-all:
+help:
 
 
 include ../scripts/MakefilePre.mk
@@ -29,19 +29,28 @@ OBJCOPY = $(CROSS_PREFIX)objcopy
 # We simply want to run the examples with 'qemu-arm project.elf' 
 # instead of building for a particular hardware.
 # The easiest is to link with semihosting libc version (ie. rdimon.specs)
-LDFLAGS = --specs=rdimon.specs 
-CFLAGS   = -Wall
-CXXFLAGS = -Wall -fno-exceptions -fno-rtti  # disable exceptions and RTTI to simplify the linking of C++ code (anyway, does exceptions and RTTI are a good idea in deep embedded code ?)
-CPPFLAGS = 
-ASFLAGS  =
+LDFLAGS  += --specs=rdimon.specs 
+CFLAGS   += -Wall
+CXXFLAGS += -Wall -fno-exceptions -fno-rtti  # disable exceptions and RTTI to simplify the linking of C++ code (anyway, does exceptions and RTTI are a good idea in deep embedded code ?)
 
 
+# turning on DEBUG=1 macro if DEBUG=y is set in make command line
+DEBUG?=n  
+ifeq ($(DEBUG),y)
+CPPFLAGS += -DDEBUG=1
+endif
 
-# list of sources to build
+# list of project sources to build
 SOURCES-y += main.cxx
     
+    
+
 # include the various modules of the project
+
+# by default, configure libA to build assembler part, except if 'make LIBA_BUILD_ASM=n' is used to build
+LIBA_BUILD_ASM=y 
 include ../libA/Module.mk
+
 include ../libB/Module.mk
 include ../libC++/Module.mk
 
@@ -64,3 +73,11 @@ test: all
 	@echo "------------ test --------------"
 	$(HIDECMD) qemu-arm $(OUTPUT)
 
+
+help:
+	@echo "usage:"
+	@echo "   make [clean|all|test] [LIBA_BUILD_ASM=(y)/n] [VERBOSE=1] [DEBUG=y/(n)]"
+	
+	
+	
+	

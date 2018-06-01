@@ -20,7 +20,8 @@ endif
 # main.d & co files were created the previous time we run the makefile
 include $(wildcard $(addsuffix .d,$(basename $(OBJS))))
 
-$(warning OBJS = $(OBJS))
+# Uncomment following line to debug to build object list
+#$(warning OBJS = $(OBJS))
 
 # generic rules for build and generating dependency list
 %.o: %.c

@@ -1,13 +1,20 @@
 
 LIBA_DIR := $(module_localdir)
 
-SOURCES-y += $(addprefix $(LIBA_DIR)/, \
-	liba.c \
-	liba_asm.s \
-	)
+
+# set to y or n to select assembler or C implementation for liba_add()
+$(warning LIBA_BUILD_ASM:$(LIBA_BUILD_ASM))
+LIBA_BUILD_ASM?=y
+
+
+
+SOURCES-y += $(LIBA_DIR)/liba.c
+SOURCES-$(LIBA_BUILD_ASM) += $(LIBA_DIR)/liba_asm.s
 	
 	
 INCLUDES-y += $(LIBA_DIR)
 
 # Each module can modify the various flags
-CPPFLAGS += -DBUILD_LIBA=1
+ifeq ($(LIBA_BUILD_ASM),y)
+CPPFLAGS += -DLIBA_BUILD_ASM=1
+endif
