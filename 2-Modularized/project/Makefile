@@ -77,7 +77,10 @@ test: all
 help:
 	@echo "usage:"
 	@echo "   make [clean|all|test] [LIBA_BUILD_ASM=(y)/n] [VERBOSE=1] [DEBUG=y/(n)]"
-	
+	@echo "      VERBOSE=1 : Display the detail of every CC, LD, etc build operation."
+	@echo "                  (default is to display a short line for each build operation)"
+	@echo "      LIBA_BUILD_ASM=(y)/n : Does liba is build with assembler implementation (default yes)."
+	@echo "      DEBUG=y/(n) : Set DEBUG=1 macro for every C file"
 	
 	
 	

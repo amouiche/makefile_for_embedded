@@ -1,8 +1,8 @@
 
-.phony : all clean test
+.phony : all clean test help
 
 # set the default target for 'make' called without target
-all:
+help:
 
 
 
@@ -114,3 +114,10 @@ test: all
 	@echo "------------ test --------------"
 	$(HIDECMD) qemu-arm $(OUTPUT)
 
+help:
+	@echo "usage:"
+	@echo "   make [clean|all|test] [VERBOSE=1]"
+	@echo "      VERBOSE=1 : Display the detail of every CC, LD, etc build operation."
+	@echo "                  (default is to display a short line for each build operation)"
+	
+	
