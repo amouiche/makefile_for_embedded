@@ -1,10 +1,15 @@
 
 #include <stdio.h>
 #include "liba.h"
+#include "common_filename.h"
+
+
+
 
 void liba_foo(void)
 {
     printf("from liba_foo.\n");
+    common_function_name();
 }
 
 
