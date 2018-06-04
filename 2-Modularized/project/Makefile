@@ -48,7 +48,7 @@ SOURCES-y += main.cxx
 # include the various modules of the project
 
 # by default, configure libA to build assembler part, except if 'make LIBA_BUILD_ASM=n' is used to build
-LIBA_BUILD_ASM=y 
+LIBA_BUILD_ASM?=y
 include ../libA/Module.mk
 
 include ../libB/Module.mk

@@ -3,7 +3,6 @@ LIBA_DIR := $(module_localdir)
 
 
 # set to y or n to select assembler or C implementation for liba_add()
-$(warning LIBA_BUILD_ASM:$(LIBA_BUILD_ASM))
 LIBA_BUILD_ASM?=y
 
 
