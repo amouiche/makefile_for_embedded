@@ -34,6 +34,6 @@ endif
 # common_function_name() function exists in libA and libC.
 # In both cases, they are internal function.
 # The most simple way to avoid the name collision when linking the project
-# is to make those kind of function local to the intermediate lib 7
-# (ie. not exported to the remain of the project)
+# is to make those kind of function local to the intermediate lib
+# (ie. not exported to the remain part of the project).
 libA_OBJCOPYFLAGS = --localize-symbol=common_function_name

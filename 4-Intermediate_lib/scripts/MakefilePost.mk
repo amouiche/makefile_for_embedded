@@ -80,9 +80,9 @@ $(BUILDDIR)/%.o: %.s
 #    - foo_OBJCOPYFLAGS = [optional objcopy operation flags to perform on the resulting library]
 define INTERMEDIATE_LIB_BUILD_EVAL
 
-INTERMEDIATE_LIB_OBJS = $(addprefix $(BUILDDIR)/,$(abspath $(addsuffix .o,$(basename $(sort $($(libname)_SOURCES-y))))))
+INTERMEDIATE_LIB_OBJS := $(addprefix $(BUILDDIR)/,$(abspath $(addsuffix .o,$(basename $(sort $($(libname)_SOURCES-y))))))
 
-include $(wildcard $(addsuffix .d,$(basename $(INTERMEDIATE_LIB_OBJS)))) # source dependencies informations
+include $$(wildcard $$(addsuffix .d,$$(basename $$(INTERMEDIATE_LIB_OBJS)))) # source dependencies informations
 
 # Target specific variables
 $$(INTERMEDIATE_LIB_OBJS): CFLAGS   += $$($(libname)_CFLAGS)
